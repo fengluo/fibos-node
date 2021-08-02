@@ -1,2 +1,2 @@
-# yiyi-chain-node
+# fibos-node
 
