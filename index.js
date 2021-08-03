@@ -41,8 +41,7 @@ fibos.load("net", {
 if(producername && public_key && private_key){
     fibos.load("producer", {
         'producer-name': producername,
-        // 'enable-stale-production': true,
-        'private-key': JSON.stringify([public_key, private_key])
+        'signature-provider': `${public_key}=KEY:${private_key}`
     });
 }
 
