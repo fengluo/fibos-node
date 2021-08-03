@@ -4,5 +4,5 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 RUN curl -s https://fibos.io/download/installer.sh | sh
 WORKDIR /app
-COPY index.js /app/
+COPY . /app/
 CMD ["fibos", "index.js"]

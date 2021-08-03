@@ -13,7 +13,7 @@ docker build -t fibos-node .
 * PRODUCER_PUBLIC_KEY BP 公钥
 * PRODUCER_PRIVATE_KEY BP 私钥
 
-节点数据位置
+容器节点数据位置
 * /blockData/data
 
 HTTP 端口

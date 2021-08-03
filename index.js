@@ -13,13 +13,9 @@ fibos.data_dir = '/blockData/data';
 let chain_config = {
 	"contracts-console": true,
 	'chain-state-db-size-mb': 8 * 1024,
+	'genesis-json': "./genesis.json"
 	// "delete-all-blocks": true
 };
-
-if (!fs.exists(fibos.data_dir) && !fs.exists(fibos.config_dir)) {
-	chain_config['genesis-json'] = "genesis.json";
-}
-
 
 console.notice("config_dir:", fibos.config_dir);
 console.notice("data_dir:", fibos.data_dir);
