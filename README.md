@@ -12,9 +12,10 @@ docker build -t fibos-node .
 * PRODUCER_ACCOUNT BP账户名
 * PRODUCER_PUBLIC_KEY BP 公钥
 * PRODUCER_PRIVATE_KEY BP 私钥
+* SNAPSHOT_PATH 快照文件位置
 
 容器节点数据位置
-* /blockData/data
+* /app/data
 
 HTTP 端口
 * 8870
@@ -26,7 +27,7 @@ P2P 端口
 
 BP节点示例，实际使用按需修改参数
 ```
-docker run -v ~/blockData/data:/blockData/data -p 8870:8870 -p 9870:9870 -e P2P_PEER_ADDRESS=192.168.1.1:9870,192.168.1.2:9870 -e PRODUCER_ACCOUNT=tttttestbp1 -e PRODUCER_PUBLIC_KEY=aaaaaaaa -e PRODUCER_PRIVATE_KEY=bbbbb --name fibos-node fibos-node
+docker run -v ~/blockData/data:/app/data -p 8870:8870 -p 9870:9870 -e P2P_PEER_ADDRESS=192.168.1.1:9870,192.168.1.2:9870 -e PRODUCER_ACCOUNT=tttttestbp1 -e PRODUCER_PUBLIC_KEY=aaaaaaaa -e PRODUCER_PRIVATE_KEY=bbbbb --name fibos-node fibos-node
 ```
 ## 其他
 
