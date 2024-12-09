@@ -1,6 +1,5 @@
-const fibos = require('fibos');
-const fs = require("fs");
-console.notice("start FIBOS producer node");
+const fibos = require('chain');
+console.notice("start FIBOS node");
 let p2paddress = process.env.P2P_PEER_ADDRESS ? process.env.P2P_PEER_ADDRESS.split(',') : [];
 if(p2paddress.length <= 0){
 	p2paddress = require('./p2p.json');
@@ -12,12 +11,13 @@ let producername = process.env.PRODUCER_ACCOUNT;
 let public_key = process.env.PRODUCER_PUBLIC_KEY;
 let private_key = process.env.PRODUCER_PRIVATE_KEY;
 
+fibos.pubkey_prefix = "FO";
 fibos.config_dir = './data';
 fibos.data_dir = './data';
 
 let chain_config = {
 	"contracts-console": true,
-	'chain-state-db-size-mb': 8 * 1024 * 100
+	'chain-state-db-size-mb': 8 * 1024
 	// "delete-all-blocks": true
 };
 
@@ -45,27 +45,30 @@ fibos.load("net", {
 	"agent-name": "FIBOS Bp"
 });
 
+let producer_config = {
+	'max-transaction-time': 3000,
+	'snapshots-dir': 'snapshots'
+}
+
 if(producername && public_key && private_key){
-    fibos.load("producer", {
-        'producer-name': producername,
-        'signature-provider': `${public_key}=KEY:${private_key}`,
-		'snapshots-dir': 'snapshots'
-    });
-	fibos.load("producer_api");
+	producer_config['producer-name'] = producername;
+	producer_config['signature-provider'] = `${public_key}=KEY:${private_key}`;
 }
 
-//v1.7.1.4 for eth fox
+fibos.load("producer", producer_config);
+// fibos.load("producer_api");
 
-fibos.load("ethash");
-
-if(producername && private_key){
-	fibos.load("bp_signature", {
-		"signature-producer": producername,
-		"signature-private-key": private_key
-	});
-}
+// if(producername && private_key){
+// 	fibos.load("bp_signature", {
+// 		"signature-producer": producername,
+// 		"signature-private-key": private_key
+// 	});
+// }
 
 fibos.load("chain", chain_config);
 fibos.load("chain_api");
+
+//for eth cross
+fibos.load("cross");
 
 fibos.start();
